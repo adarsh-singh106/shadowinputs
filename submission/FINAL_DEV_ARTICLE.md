@@ -33,8 +33,8 @@ Small DevOps consultancies and teams managing sensitive release gates or regulat
 
 ## Demo
 
-**Video Walkthrough:** [YOUR_VIDEO_DEMO_URL]  
-*(A complete 60–90 second live screen recording script and operator checklist is available in `submission/RECORDING_STORYBOARD.md`)*
+**Video Walkthrough:** [Watch 74-Second Demo Walkthrough](https://github.com/adarsh-singh106/shadowinputs/blob/main/submission/assets/shadowinputs_demo_walkthrough.mp4) *(Included in repository: [`shadowinputs_demo_walkthrough.mp4`](https://raw.githubusercontent.com/adarsh-singh106/shadowinputs/main/submission/assets/shadowinputs_demo_walkthrough.mp4))*  
+*(A complete step-by-step operator script and timing breakdown is documented in `submission/RECORDING_STORYBOARD.md`)*
 
 The core verification workflow runs across four deterministic conditions:
 
