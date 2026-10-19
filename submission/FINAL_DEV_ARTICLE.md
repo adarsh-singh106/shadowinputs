@@ -84,9 +84,14 @@ py -m shadowinputs inspect `
 }
 ```
 
+*(Note on Visuals: Images below are rendered terminal output cards reproducing the exact CLI commands and console outputs from Windows 11 execution.)*
+
 ![Local Gemma 3 Model Inspection](https://raw.githubusercontent.com/adarsh-singh106/shadowinputs/main/submission/assets/02_gemma_inspection.png)
 
-The model inspection status `MODEL_RETURNED_UNTRUSTED_CANDIDATES` and exit code `0` demonstrate live candidate inference. The engine rejected hallucinated or non-existent file paths through strict path bounds (`safe_file`) while preserving the statically identified `policy.json`.
+**Honest Assessment of Model Performance:**  
+The model inspection executed live against local Ollama, returning status `MODEL_RETURNED_UNTRUSTED_CANDIDATES` and exit code `0`. However, its actual `candidates` list was empty. In our test fixture, the AST scanner had already discovered `policy.json` (leaving no un-indexed files), and the lightweight `gemma3:1b` model hallucinated placeholder paths (such as `"relative/path"`) from the prompt schema, which our `safe_file` validator rejected. 
+
+A successful API response is **not** proof that a 1B parameter model can magically deduce complex deployment graphs. In fact, this real-world limitation underscores our core thesis: **AI hints must always be treated as untrusted suggestions, validated against disk bounds, and never used as authorization.** The deterministic static scanner did the actual discovery; the AI was a secondary hint mechanism.
 
 ### Pre-Deployment Verification: PASS vs BLOCK
 Once approved, the manifest of input hashes is stored **outside** the mutable working directory (e.g. in protected storage or `$TEMP`). Pre-execution verification validates file bytes before release:
@@ -179,4 +184,4 @@ The strongest architecture turned out to be the simplest:
 
 ## Prize Categories
 
-- **Best Use of Gemma:** Demonstrated live candidate dependency discovery using a local, open-weight **Gemma 3** model (`gemma3:1b`) hosted on Ollama via loopback API. The model's suggestions are vetted through strict path validation and combined with static AST analysis to assist human reviewers in uncovering obscure shadow inputs.
+- **Best Use of Gemma:** Demonstrated a live, loopback integration querying a local open-weight **Gemma 3** model (`gemma3:1b`) hosted on Ollama. Rather than using an LLM as an unearned authority, we explored Gemma as an untrusted candidate dependency advisor alongside static AST analysis, bound its output to strict repository path validation (`safe_file`), and documented the empirical limits of lightweight local models in automated dependency discovery.

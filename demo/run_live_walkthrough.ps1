@@ -44,20 +44,23 @@ Read-Host "Press ENTER to introduce unreviewed policy change..."
 Write-Host "`n[45-65s] STEP 3: SILENT INPUT DRIFT (MODIFYING policy.json ONLY)" -ForegroundColor Magenta
 $policyFile = "examples/deployment/policy.json"
 $originalPolicy = Get-Content $policyFile -Raw
-$modifiedPolicy = $originalPolicy.Replace('"require_human_review": true', '"require_human_review": false')
-Set-Content $policyFile $modifiedPolicy
+try {
+    $modifiedPolicy = $originalPolicy.Replace('"require_human_review": true', '"require_human_review": false')
+    Set-Content $policyFile $modifiedPolicy
 
-Write-Host "Modified $policyFile: require_human_review is now FALSE." -ForegroundColor Red
-Write-Host "Notice: deploy.py and deploy.yml remain 100% UNCHANGED." -ForegroundColor Yellow
+    Write-Host "Modified $policyFile: require_human_review is now FALSE." -ForegroundColor Red
+    Write-Host "Notice: deploy.py and deploy.yml remain 100% UNCHANGED." -ForegroundColor Yellow
 
-Write-Host "`nRunning pre-execution verification:" -ForegroundColor Gray
-Write-Host "Running: py -m shadowinputs verify --root .\examples\deployment --manifest `"$manifestPath`"" -ForegroundColor Cyan
-py -m shadowinputs verify --root .\examples\deployment --manifest "$manifestPath"
-Write-Host "Exit Code: $LASTEXITCODE (BLOCK - Stale Approval Detected!)" -ForegroundColor Red
-
-# Restore fixture immediately
-Set-Content $policyFile $originalPolicy
-Write-Host "Restored policy.json to original state." -ForegroundColor Gray
+    Write-Host "`nRunning pre-execution verification:" -ForegroundColor Gray
+    Write-Host "Running: py -m shadowinputs verify --root .\examples\deployment --manifest `"$manifestPath`"" -ForegroundColor Cyan
+    py -m shadowinputs verify --root .\examples\deployment --manifest "$manifestPath"
+    Write-Host "Exit Code: $LASTEXITCODE (BLOCK - Stale Approval Detected!)" -ForegroundColor Red
+}
+finally {
+    # Restore fixture immediately under any condition
+    Set-Content $policyFile $originalPolicy
+    Write-Host "Restored policy.json to original state." -ForegroundColor Gray
+}
 Read-Host "Press ENTER to run automated test suite..."
 
 # Section 5 (65-85s): Test Suite and Verification
