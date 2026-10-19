@@ -1,0 +1,5 @@
+{
+  "environment": "staging",
+  "require_human_review": true,
+  "allow_delete": false
+}

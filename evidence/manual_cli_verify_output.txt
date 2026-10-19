@@ -1,0 +1,10 @@
+=== 1. APPROVE ===
+APPROVED: 3 files. Manifest: C:\Users\adars\AppData\Local\Temp\shadowinputs-approval.json
+Only approve after reviewing all inputs and the AI inspection report.
+
+=== 2. VERIFY (UNCHANGED) ===
+PASS: All approved repository-local input digests match.
+
+=== 3. VERIFY AFTER POLICY EDIT (BLOCK, exit=1) ===
+BLOCK: Approved input state has changed:
+ - policy.json: CHANGED expected=7e32121c8570 actual=480abc8d7e91

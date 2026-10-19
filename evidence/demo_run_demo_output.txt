@@ -1,0 +1,8 @@
+SCENARIO: A reviewed workflow calls deploy.py, which reads policy.json.
+Approved: .github/workflows/deploy.yml, deploy.py, policy.json
+1) Nothing changed       PASS
+2) Unrelated file edit   PASS
+3) Policy changed        BLOCK
+    Evidence: policy.json: CHANGED expected=4e1c90b0e9f3 actual=480abc8d7e91
+4) Policy removed        BLOCK
+ALL DETERMINISTIC SCENARIOS VERIFIED. Local model not invoked in this demo.

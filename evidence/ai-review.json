@@ -1,0 +1,25 @@
+{
+  "static": {
+    "entries": [
+      ".github/workflows/deploy.yml",
+      "deploy.py"
+    ],
+    "files": [
+      ".github/workflows/deploy.yml",
+      "deploy.py",
+      "policy.json"
+    ],
+    "unresolved": []
+  },
+  "ai": {
+    "status": "MODEL_RETURNED_UNTRUSTED_CANDIDATES",
+    "model": "gemma3:1b",
+    "candidates": [],
+    "rejected": [
+      "relative/path",
+      "{'candidates': [{'path': 'relative/path', 'reason': \"The file 'deploy.py' contains a JSON object tha"
+    ],
+    "uncertainties": [],
+    "warning": "Human must inspect these hints. No AI suggestion is approved automatically."
+  }
+}

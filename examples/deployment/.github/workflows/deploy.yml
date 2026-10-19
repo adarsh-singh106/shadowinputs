@@ -1,0 +1,9 @@
+name: Synthetic Deployment Example
+on: workflow_dispatch
+jobs:
+  simulation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Example command only, not executed by ShadowInputs
+        run: python deploy.py
